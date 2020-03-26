@@ -19,7 +19,14 @@ std::string TerminalIO::ReadString()
 	return value;
 }
 
-void TerminalIO::PrintMessage(std::string message)
+void TerminalIO::PrintString(std::string message)
 {
-	std::cout << message << "\n";
+	std::cout << message;
+}
+
+void TerminalIO::PrintMenu(std::string options)
+{
+	this->PrintString("~~ Menu ~~\n");
+	this->PrintString(options);
+	this->PrintString("\n");
 }
