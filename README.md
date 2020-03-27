@@ -37,16 +37,16 @@ OOP Laboratory 6-7 project source files.
 
 > Make an app for managing books. Each book is identified by _title_, _author_, _genre_, _release year_. The app should be capable of going the following:
 
-> 1. Basic operations:
+> 1. Display the full list of books
+> 2. Basic operations:
 >    * Add book
 >    * Modify book
 >    * Delete book
-> 2. Display the full list of books
-> 5. Search book
-> 6. Filter books by:
+> 3. Search book
+> 4. Filter books by:
 >    * Title
 >    * Release year
-> 7. Sort books by:
+> 5. Sort books by:
 >    * Title
 >    * Author
 >    * Release year and genre
@@ -61,6 +61,7 @@ Also, I implemented the following functionalities:
 1. Exiting application
 2. Listing all books
 3. Adding book
+4. Modifying book
 
 __Note__: everything done at runtime will not be saved to disk!
 
