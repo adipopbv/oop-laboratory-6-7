@@ -2,15 +2,22 @@
 
 ## Table of Contents
 
- - [Details](#Details)
- - [Assignments](#Assignments)
+- [Details](#Details)
+- [Assignments](#Assignments)
+	- [Code specifications](#Code-specifications)
 	- [App specifications](#App-specifications)
+- [Solution](#Solution)
+	- [Iteration 1](#Iteration-1)
 
 ## Details
+
+A __library management__ application.
 
 OOP Laboratory 6-7 project source files.
 
 ## Assignments
+
+### Code specifications:
 
 > Make a c++ console application using object oriented programming paradigm.
 
@@ -24,7 +31,7 @@ OOP Laboratory 6-7 project source files.
 > 2. Data validation and user warnings and errors;
 > 3. Make a UML diagram.
 
-### App specifications
+### App specifications:
 
 > __Library app__
 
@@ -46,6 +53,14 @@ OOP Laboratory 6-7 project source files.
 
 ## Solution
 
-### Iteration 1
+### Iteration 1:
 
-### Iteration 2
+Added the base structure of the application, like the library terminal ui, the library service, the book data type and implemented the books repository using `std::vector` and character strings using `std::string`.
+
+Also, I implemented the following functionalities:
+1. Exiting application
+2. Listing all books
+3. Adding book
+
+__Note__: everything done at runtime will not be saved to disk!
+
