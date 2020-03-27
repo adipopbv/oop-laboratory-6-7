@@ -16,15 +16,23 @@ class LibraryClient
 		/// Terminal input and output operations handler
 		TerminalIO io;
 
-		// Library service getter
-		LibraryService getLibraryService() { return this->libraryService; }
-		// Library service setter
+		/// Library service getter
+		LibraryService getLibraryService() { 
+			return this->libraryService; 
+		}
+		/// Library service setter
 		void setLibraryService(LibraryService value) { this->libraryService = value; }
 
-		// Io getter
+		/// Io getter
 		TerminalIO getIO() { return this->io; }
-		// Io setter
+		/// Io setter
 		void setIO(TerminalIO value) { this->io = value; }
+
+		/// Adds book to the repository
+		void AddBook();
+
+		/// Lists all books
+		void ListAllBooks();
 
 		/// Exits application
 		void ExitApplication();
