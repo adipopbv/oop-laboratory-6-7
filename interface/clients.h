@@ -28,11 +28,14 @@ class LibraryClient
 		/// Io setter
 		void setIO(TerminalIO value) { this->io = value; }
 
+		/// Lists all books
+		void ListAllBooks();
+
 		/// Adds book to the repository
 		void AddBook();
 
-		/// Lists all books
-		void ListAllBooks();
+		/// Modifies a book from the repository
+		void ModifyBook();
 
 		/// Exits application
 		void ExitApplication();
