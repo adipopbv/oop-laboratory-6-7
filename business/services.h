@@ -43,4 +43,16 @@ class LibraryService
 		 * @param releaseYear The release year of the book
 		 */
 		void AddBookToRepo(std::string title = "", std::string author = "", std::string genre = "", int releaseYear = 0);
+
+		/**
+		 * Modifies a book from the repo, searching by title and author
+		 *
+		 * @param titleSearch The title to search by
+		 * @param authorSearch The author to search by
+		 * @param title The new title of the book
+		 * @param author The new author of the book
+		 * @param genre The new genre of the book
+		 * @param releaseYear The new release year of the book
+		 */
+		void ModifyBookInRepo(std::string titleSearch, std::string authorSearch, std::string title = "", std::string author = "", std::string genre = "", int releaseYear = 0);
 };

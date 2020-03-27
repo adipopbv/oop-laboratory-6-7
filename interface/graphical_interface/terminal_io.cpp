@@ -28,7 +28,8 @@ void TerminalIO::PrintString(std::string message)
 
 void TerminalIO::PrintMenu(std::string options)
 {
-	this->PrintString("~~ Menu ~~\n");
+	this->PrintString("»»Menu\n");
 	this->PrintString(options);
 	this->PrintString("\n");
 }
+
