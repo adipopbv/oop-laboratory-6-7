@@ -12,8 +12,8 @@ Book::Book(std::string title, std::string author, std::string genre, int release
 Book::~Book()
 {
 	// setting fields of Book instance to default values
-	this->setTitle(NULL);
-	this->setAuthor(NULL);
-	this->setGenre(NULL);
+	this->setTitle("");
+	this->setAuthor("");
+	this->setGenre("");
 	this->setReleaseYear(0);
 }

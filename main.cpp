@@ -8,10 +8,10 @@
 int main()
 {
 	std::vector<Book> booksRepo; // the books repository
-	LibraryService libraryService = LibraryService(booksRepo);
-	LibraryClient libraryClient = LibraryClient(libraryService);
+	LibraryService libraryService = LibraryService(booksRepo); // the library service
+	LibraryClient libraryClient = LibraryClient(libraryService); // the library client
 
-	libraryClient.RunApplication();
+	libraryClient.RunApplication(); // application loop
 
 	return 0;
 }

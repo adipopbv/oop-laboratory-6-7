@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <exception>
 
 /// Handles input and output operations for terminal applications
 class TerminalIO
@@ -16,16 +17,18 @@ class TerminalIO
 		/**
 		 * Reads an integer from the terminal
 		 *
+		 * @param prompt Message to print before reading input
 		 * @returns The read integer
 		 */
-		int ReadInt();
+		int ReadInt(std::string prompt = "");
 
 		/**
 		 * Reads a line of characters from the terminal
 		 *
+		 * @param prompt Message to print before reading input
 		 * @returns The read string of characters
 		 */
-		std::string ReadString();
+		std::string ReadString(std::string prompt = "");
 
 		/**
 		 * Prints a message in the terminal
