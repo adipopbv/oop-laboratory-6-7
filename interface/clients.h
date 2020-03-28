@@ -37,6 +37,9 @@ class LibraryClient
 		/// Modifies a book from the repository
 		void ModifyBook();
 
+		/// Deletes a book from the repository
+		void DeleteBook();
+
 		/// Exits application
 		void ExitApplication();
 

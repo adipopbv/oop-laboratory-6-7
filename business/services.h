@@ -55,4 +55,12 @@ class LibraryService
 		 * @param releaseYear The new release year of the book
 		 */
 		void ModifyBookInRepo(std::string titleSearch, std::string authorSearch, std::string title = "", std::string author = "", std::string genre = "", int releaseYear = 0);
+
+		/**
+		 * Deletes a book from the repo, searching by title and author
+		 *
+		 * @param titleSearch The title to search by
+		 * @param authorSearch The author to search by
+		 */
+		void DeleteBookFromRepo(std::string titleSearch, std::string authorSearch);
 };
