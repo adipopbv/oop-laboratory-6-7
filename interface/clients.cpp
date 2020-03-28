@@ -68,6 +68,24 @@ void LibraryClient::ModifyBook()
 	{ this->io.PrintString("»Error: " + s + "!\n\n"); }
 }
 
+void LibraryClient::DeleteBook()
+{
+	this->io.PrintString("»»Delete book\n");
+	this->io.PrintString("  ╚═Book to be deleted:\n");
+	std::string titleSearch = this->io.ReadString("    ├─Title: ");
+	std::string authorSearch = this->io.ReadString("    └─Author: ");
+
+	this->io.PrintString("\n");
+	try
+	{
+		this->libraryService.DeleteBookFromRepo(titleSearch, authorSearch);
+		this->io.PrintString("»Operation succesful!\n\n");
+	}
+	catch (std::string& s)
+	{ this->io.PrintString("»Error: " + s + "!\n\n"); }
+
+}
+
 void LibraryClient::ExitApplication()
 {
 	this->io.PrintString("»Exiting application...\n\n");
@@ -82,7 +100,8 @@ void LibraryClient::RunApplication()
 		"  ╠═[0]: Exit application\n" + 
 		"  ╠═[1]: List all books\n" + 
 		"  ╠═[2]: Add book\n" +
-		"  ╚═[3]: Modify book\n";
+		"  ╠═[3]: Modify book\n" +
+		"  ╚═[4]: Delete book\n";
 	while (true)
 	{
 		this->io.PrintMenu(options);
@@ -104,6 +123,10 @@ void LibraryClient::RunApplication()
 
 			case 3:
 				this->ModifyBook();
+				break;
+
+			case 4:
+				this->DeleteBook();
 				break;
 
 			default:

@@ -62,3 +62,16 @@ void LibraryService::ModifyBookInRepo(std::string titleSearch, std::string autho
 	}
 	throw (std::string)"book not found in repo"; // exception if book not found
 }
+
+void LibraryService::DeleteBookFromRepo(std::string titleSearch, std::string authorSearch)
+{
+	for (int i = 0; i < (int)this->booksRepo.size(); i++) // searching for the book with the given title and author
+	{
+		if (this->booksRepo[i].getTitle() == titleSearch && this->booksRepo[i].getAuthor() == authorSearch) // change book if found
+		{
+			this->booksRepo.erase(this->booksRepo.begin() + i); // remove the old one
+			return;
+		}
+	}
+	throw (std::string)"book not found in repo"; // exception if book not found
+}
