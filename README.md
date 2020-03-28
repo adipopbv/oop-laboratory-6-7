@@ -62,6 +62,7 @@ Also, I implemented the following functionalities:
 2. Listing all books
 3. Adding book
 4. Modifying book
+5. Deleting book
 
 __Note__: everything done at runtime will not be saved to disk!
 
