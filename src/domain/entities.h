@@ -18,6 +18,9 @@ class Book
 		int releaseYear = 0;
 
 	public:
+		/// Overloading == operator
+		bool operator== (Book other);
+
 		/// Book constructor
 		Book(std::string title = "None", std::string author = "None", std::string genre = "None", int releaseYear = 0);
 
