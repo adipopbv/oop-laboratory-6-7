@@ -2,3 +2,6 @@ app
 *.gcov
 *.gcda
 *.gcno
+/build
+/lib
+CMakeLists.txt

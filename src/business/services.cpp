@@ -14,15 +14,15 @@ LibraryService::~LibraryService()
 
 std::vector<Book> LibraryService::GetBooks(std::string title, int releaseYear)
 {
-	return std::vector<Book>();
+	return this->getBooksRepo();
 }
 std::vector<Book> LibraryService::GetBooks(std::string title)
 {
-	return std::vector<Book>();
+	return this->getBooksRepo();
 }
 std::vector<Book> LibraryService::GetBooks(int releaseYear)
 {
-	return std::vector<Book>();
+	return this->getBooksRepo();
 }
 std::vector<Book> LibraryService::GetBooks()
 {
