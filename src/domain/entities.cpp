@@ -1,10 +1,5 @@
 #include "./entities.h"
 
-bool Book::operator== (Book other)
-{
-	return this->getTitle() == other.getTitle() && this->getAuthor() == other.getAuthor();
-}
-
 Book::Book(std::string title, std::string author, std::string genre, int releaseYear)
 {
 	// setting fields of Book instance to parameter values

@@ -20,7 +20,7 @@ class TerminalIO
 		 * @param prompt Message to print before reading input
 		 * @returns The read integer
 		 */
-		int ReadInt(std::string prompt = "");
+		int ReadInt(std::string const &prompt = "") const;
 
 		/**
 		 * Reads a line of characters from the terminal
@@ -28,19 +28,19 @@ class TerminalIO
 		 * @param prompt Message to print before reading input
 		 * @returns The read string of characters
 		 */
-		std::string ReadString(std::string prompt = "");
+		std::string ReadString(std::string const &prompt = "") const;
 
 		/**
 		 * Prints a message in the terminal
 		 *
 		 * @param message The message to be displayed
 		 */
-		void PrintString(std::string message);
+		void PrintString(std::string const &message) const;
 
 		/**
 		 * Prints the application menu in the terminal
 		 *
 		 * @param options The options list to be displayed
 		 */
-		void PrintMenu(std::string options);
+		void PrintMenu(std::string const &options) const;
 };
