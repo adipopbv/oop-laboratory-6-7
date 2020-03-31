@@ -4,7 +4,7 @@
 #include <string>
 
 #include "../business/services.h"
-#include "./graphical_interface/terminal_io.h"
+#include "./graphical-interface/terminal-io.h"
 #include "../domain/entities.h"
 
 class LibraryClient
