@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
 
-#include "domain/entities.h"
 #include "business/services.h"
+#include "domain/entities.h"
 #include "interface/clients.h"
 
-int main()
+auto main() -> int
 {
 	std::vector<Book> booksRepo; // the books repository
 	LibraryService libraryService = LibraryService(booksRepo); // the library service

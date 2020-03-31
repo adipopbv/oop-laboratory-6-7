@@ -18,9 +18,6 @@ class Book
 		int releaseYear = 0;
 
 	public:
-		/// Overloading == operator
-		bool operator== (Book other);
-
 		/// Book constructor
 		Book(std::string title = "None", std::string author = "None", std::string genre = "None", int releaseYear = 0);
 
@@ -28,22 +25,25 @@ class Book
 		~Book();
 
 		/// Title getter
-		std::string getTitle() { return this->title; }
+		std::string getTitle() const { return this->title; }
 		/// Title setter
-		void setTitle(std::string value) { this->title = value; }
+		void setTitle(std::string const value) { this->title = value; }
 
 		/// Author getter
-		std::string getAuthor() { return this->author; }
+		std::string getAuthor() const { return this->author; }
 		/// Author setter
-		void setAuthor(std::string value) { this->author = value; }
+		void setAuthor(std::string const value) { this->author = value; }
 
 		/// Genre getter
-		std::string getGenre() { return this->genre; }
+		std::string getGenre() const { return this->genre; }
 		/// Genre setter
-		void setGenre(std::string value) { this->genre = value; }
+		void setGenre(std::string const value) { this->genre = value; }
 
 		/// Release year getter
-		int getReleaseYear() { return this->releaseYear; }
+		int getReleaseYear() const { return this->releaseYear; }
 		/// Release year setter
-		void setReleaseYear(int value) { this->releaseYear = value; }
+		void setReleaseYear(int const value) { this->releaseYear = value; }
+
+		/// Overloading == operator
+		bool operator== (const Book other) const { return this->getTitle() == other.getTitle() && this->getAuthor() == other.getAuthor(); }
 };

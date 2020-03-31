@@ -1,9 +1,8 @@
 #include "./clients.h"
 
-LibraryClient::LibraryClient(LibraryService libraryService)
+LibraryClient::LibraryClient(const LibraryService &libraryService) :io(TerminalIO())
 {
 	this->setLibraryService(libraryService);
-	this->setIO(TerminalIO());
 }
 
 LibraryClient::~LibraryClient()
@@ -11,15 +10,15 @@ LibraryClient::~LibraryClient()
 	this->setLibraryService(LibraryService());
 }
 
-void LibraryClient::ListAllBooks()
+void LibraryClient::ListAllBooks() const
 {
-	std::vector<Book> books = this->libraryService.GetBooks();
-	if (books.size() <= 0)
+	std::vector<Book> books = this->getLibraryService().GetBooks();
+	if (books.empty())
 	{
 		this->io.PrintString("»No books to show!\n\n");
 		return;
 	}
-	for (int i = 0; i < (int)books.size(); i++)
+	for (int i = 0; i < static_cast<int>(books.size()); i++)
 	{
 		this->io.PrintString("──────────\n");
 		this->io.PrintString(
@@ -86,7 +85,7 @@ void LibraryClient::DeleteBook()
 
 }
 
-void LibraryClient::ExitApplication()
+void LibraryClient::ExitApplication() const
 {
 	this->io.PrintString("»Exiting application...\n\n");
 	exit(0);

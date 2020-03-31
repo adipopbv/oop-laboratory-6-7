@@ -1,10 +1,10 @@
 #include "./terminal-io.h"
 
-TerminalIO::TerminalIO() { }
+TerminalIO::TerminalIO() = default;
 
-TerminalIO::~TerminalIO() { }
+TerminalIO::~TerminalIO() = default;
 
-int TerminalIO::ReadInt(std::string prompt)
+int TerminalIO::ReadInt(std::string const &prompt) const
 {
 	this->PrintString(prompt);
 	std::string input = this->ReadString();
@@ -13,7 +13,7 @@ int TerminalIO::ReadInt(std::string prompt)
 	return -1;
 }
 
-std::string TerminalIO::ReadString(std::string prompt)
+std::string TerminalIO::ReadString(std::string const &prompt) const
 {
 	this->PrintString(prompt);
 	std::string value = "";
@@ -21,12 +21,12 @@ std::string TerminalIO::ReadString(std::string prompt)
 	return value;
 }
 
-void TerminalIO::PrintString(std::string message)
+void TerminalIO::PrintString(std::string const &message) const
 {
 	std::cout << message;
 }
 
-void TerminalIO::PrintMenu(std::string options)
+void TerminalIO::PrintMenu(std::string const &options) const
 {
 	this->PrintString("»»Menu\n");
 	this->PrintString(options);
