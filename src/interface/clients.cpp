@@ -15,85 +15,74 @@ void LibraryClient::ListAllBooks() const
 	Repo<Book> books = this->getLibraryService().GetBooks();
 	if (books.Empty())
 	{
-		this->io.PrintString("»No books to show!\n\n");
+		this->getIO().PrintString("»No books to show!\n\n");
 		return;
 	}
 	for (int i = 0; i < static_cast<int>(books.Size()); i++)
 	{
-		this->io.PrintString("──────────\n");
-		this->io.PrintString(
+		this->getIO().PrintString("──────────\n");
+		this->getIO().PrintString(
 			"  ┌─Title: " + books[i].getTitle() + "\n" +
 			"  ├─Author: " + books[i].getAuthor() + "\n" +
 			"  ├─Genre: " + books[i].getGenre() + "\n" +
 			"  └─Release year: " + std::to_string(books[i].getReleaseYear()) + "\n"
 		);
 	}
-	this->io.PrintString("──────────\n\n");
+	this->getIO().PrintString("──────────\n\n");
 }
 
 void LibraryClient::AddBook()
 {
-	this->io.PrintString("»»Add book\n");
-	this->io.PrintString("  ╚═Book to be added:\n");
-	std::string title = this->io.ReadString("    ├─Title: ");
-	std::string author = this->io.ReadString("    ├─Author: ");
-	std::string genre = this->io.ReadString("    ├─Genre: ");
-	int releaseYear = this->io.ReadInt("    └─Release year: ");
+	this->getIO().PrintString("»»Add book\n");
+	this->getIO().PrintString("  ╚═Book to be added:\n");
+	std::string title = this->getIO().ReadString("    ├─Title: ");
+	std::string author = this->getIO().ReadString("    ├─Author: ");
+	std::string genre = this->getIO().ReadString("    ├─Genre: ");
+	int releaseYear = this->getIO().ReadInt("    └─Release year: ");
 
-	this->io.PrintString("\n");
+	this->getIO().PrintString("\n");
 	this->libraryService.AddBookToRepo(title, author, genre, releaseYear);
-	this->io.PrintString("»Operation succesful!\n\n");
+	this->getIO().PrintString("»Operation succesful!\n\n");
 }
 
 void LibraryClient::ModifyBook()
 {
-	this->io.PrintString("»»Modify book\n");
-	this->io.PrintString("  ╠═Book to be modified:\n");
-	std::string titleSearch = this->io.ReadString("  ║ ├─Title: ");
-	std::string authorSearch = this->io.ReadString("  ║ └─Author: ");
-	this->io.PrintString("  ╚═New book values (leave empty to not modify):\n");
-	std::string title = this->io.ReadString("    ├─Title: ");
-	std::string author = this->io.ReadString("    ├─Author: ");
-	std::string genre = this->io.ReadString("    ├─Genre: ");
-	int releaseYear = this->io.ReadInt("    └─Release year: ");
+	this->getIO().PrintString("»»Modify book\n");
+	this->getIO().PrintString("  ╠═Book to be modified:\n");
+	std::string titleSearch = this->getIO().ReadString("  ║ ├─Title: ");
+	std::string authorSearch = this->getIO().ReadString("  ║ └─Author: ");
+	this->getIO().PrintString("  ╚═New book values (leave empty to not modify):\n");
+	std::string title = this->getIO().ReadString("    ├─Title: ");
+	std::string author = this->getIO().ReadString("    ├─Author: ");
+	std::string genre = this->getIO().ReadString("    ├─Genre: ");
+	int releaseYear = this->getIO().ReadInt("    └─Release year: ");
 
-	this->io.PrintString("\n");
-	try
-	{
-		this->libraryService.ModifyBookInRepo(titleSearch, authorSearch, title, author, genre, releaseYear);
-		this->io.PrintString("»Operation succesful!\n\n");
-	}
-	catch (NotFoundError& e)
-	{ this->io.PrintString("»Error: " + e.getMessage() + "!\n\n"); }
+	this->getIO().PrintString("\n");
+	this->libraryService.ModifyBookInRepo(titleSearch, authorSearch, title, author, genre, releaseYear);
+	this->getIO().PrintString("»Operation succesful!\n\n");
 }
 
 void LibraryClient::DeleteBook()
 {
-	this->io.PrintString("»»Delete book\n");
-	this->io.PrintString("  ╚═Book to be deleted:\n");
-	std::string titleSearch = this->io.ReadString("    ├─Title: ");
-	std::string authorSearch = this->io.ReadString("    └─Author: ");
+	this->getIO().PrintString("»»Delete book\n");
+	this->getIO().PrintString("  ╚═Book to be deleted:\n");
+	std::string titleSearch = this->getIO().ReadString("    ├─Title: ");
+	std::string authorSearch = this->getIO().ReadString("    └─Author: ");
 
-	this->io.PrintString("\n");
-	try
-	{
-		this->libraryService.DeleteBookFromRepo(titleSearch, authorSearch);
-		this->io.PrintString("»Operation succesful!\n\n");
-	}
-	catch (NotFoundError& e)
-	{ this->io.PrintString("»Error: " + e.getMessage() + "!\n\n"); }
-
+	this->getIO().PrintString("\n");
+	this->libraryService.DeleteBookFromRepo(titleSearch, authorSearch);
+	this->getIO().PrintString("»Operation succesful!\n\n");
 }
 
 void LibraryClient::ExitApplication() const
 {
-	this->io.PrintString("»Exiting application...\n\n");
+	this->getIO().PrintString("»Exiting application...\n\n");
 	this->getLibraryService().getBooksRepo().FreeElements();
 }
 
 void LibraryClient::RunApplication()
 {
-	this->io.PrintString("═════ Library App ═════\n\n");
+	this->getIO().PrintString("═════ Library App ═════\n\n");
 	std::string options = "";
 	options = options + 
 		"  ╠═[0]: Exit application\n" + 
@@ -103,37 +92,44 @@ void LibraryClient::RunApplication()
 		"  ╚═[4]: Delete book\n";
 	while (true)
 	{
-		this->io.PrintMenu(options);
-		int command = this->io.ReadInt("»Please input a command: ");
-		this->io.PrintString("\n═══════════════════════\n\n");
-		switch (command)
+		try
 		{
-			case 0: 
-				this->ExitApplication();
-				return;
-				break;
-
-			case 1:
-				this->ListAllBooks();
-				break;
-
-			case 2:
-				this->AddBook();
-				break;
-
-			case 3:
-				this->ModifyBook();
-				break;
-
-			case 4:
-				this->DeleteBook();
-				break;
-
-			default:
-				this->io.PrintString("»Invalid command!\n\n");
-				break;
+			this->getIO().PrintMenu(options);
+			int command = this->getIO().ReadInt("»Please input a command: ");
+			this->getIO().PrintString("\n═══════════════════════\n\n");
+			switch (command)
+			{
+				case 0: 
+					this->ExitApplication();
+					return;
+					break;
+	
+				case 1:
+					this->ListAllBooks();
+					break;
+	
+				case 2:
+					this->AddBook();
+					break;
+	
+				case 3:
+					this->ModifyBook();
+					break;
+	
+				case 4:
+					this->DeleteBook();
+					break;
+	
+				default:
+					this->getIO().PrintString("»Invalid command!\n\n");
+					break;
+			}
+			this->getIO().PrintString("═══════════════════════\n\n");
 		}
-		this->io.PrintString("═══════════════════════\n\n");
+		catch (AppException& e)
+		{
+			this->getIO().PrintString("»Error: " + e.getMessage() + "\n\n");
+		}
 	}
 }
 

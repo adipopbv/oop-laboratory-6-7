@@ -36,3 +36,10 @@ class NotFoundError: public AppException
 		/// Exception constructor
 		NotFoundError(std::string const message) :AppException(message) { }
 };
+
+class DuplicateError: public AppException
+{
+	public:
+		/// Exception constructor
+		DuplicateError(std::string const message) :AppException(message) { }
+};
