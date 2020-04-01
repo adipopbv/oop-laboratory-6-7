@@ -63,7 +63,7 @@ void LibraryService::ModifyBookInRepo(const std::string &titleSearch, const std:
 			return;
 		}
 	}
-	throw std::string("book not found in repo"); // exception if book not found
+	throw NotFoundError("book not found in repo"); // exception if book not found
 }
 
 void LibraryService::DeleteBookFromRepo(const std::string &titleSearch, const std::string &authorSearch)
@@ -76,5 +76,5 @@ void LibraryService::DeleteBookFromRepo(const std::string &titleSearch, const st
 			return;
 		}
 	}
-	throw std::string("book not found in repo"); // exception if book not found
+	throw NotFoundError("book not found in repo"); // exception if book not found
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "../domain/exceptions.h"
 
 template <typename ElementType>
 class Repo
@@ -25,15 +26,15 @@ class Repo
 		RepoNode* NodeAtIndex(int index)
 		{
 			if (this->Empty()) // throw exception if repo is empty
-				throw std::string("index out of bounds");
+				throw IndexError("index out of bounds");
 			RepoNode* currentNode = this->head;
 			for (int i = 0; i < index; i++) // iterating nodes until the requested one
 			{
 				// throw exception if the index is out of bounds
 				if (currentNode == NULL)
-					throw std::string("index out of bounds");
+					throw IndexError("index out of bounds");
 				if (currentNode->next == NULL)
-					throw std::string("index out of bounds");
+					throw IndexError("index out of bounds");
 
 				currentNode = currentNode->next; // step to the next node
 			}
@@ -79,15 +80,15 @@ class Repo
 		ElementType &operator[](int index)
 		{
 			if (this->Empty()) // throw exception if repo is empty
-				throw std::string("index out of bounds");
+				throw IndexError("index out of bounds");
 			RepoNode* currentNode = this->head;
 			for (int i = 0; i < index; i++) // iterating nodes until the requested one
 			{
 				// throw exception if the index is out of bounds
 				if (currentNode == NULL)
-					throw std::string("index out of bounds");
+					throw IndexError("index out of bounds");
 				if (currentNode->next == NULL)
-					throw std::string("index out of bounds");
+					throw IndexError("index out of bounds");
 
 				currentNode = currentNode->next; // step to the next node
 			}

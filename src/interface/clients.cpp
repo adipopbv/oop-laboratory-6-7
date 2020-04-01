@@ -63,8 +63,8 @@ void LibraryClient::ModifyBook()
 		this->libraryService.ModifyBookInRepo(titleSearch, authorSearch, title, author, genre, releaseYear);
 		this->io.PrintString("»Operation succesful!\n\n");
 	}
-	catch (std::string& s)
-	{ this->io.PrintString("»Error: " + s + "!\n\n"); }
+	catch (NotFoundError& e)
+	{ this->io.PrintString("»Error: " + e.getMessage() + "!\n\n"); }
 }
 
 void LibraryClient::DeleteBook()
@@ -80,8 +80,8 @@ void LibraryClient::DeleteBook()
 		this->libraryService.DeleteBookFromRepo(titleSearch, authorSearch);
 		this->io.PrintString("»Operation succesful!\n\n");
 	}
-	catch (std::string& s)
-	{ this->io.PrintString("»Error: " + s + "!\n\n"); }
+	catch (NotFoundError& e)
+	{ this->io.PrintString("»Error: " + e.getMessage() + "!\n\n"); }
 
 }
 
