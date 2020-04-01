@@ -1,27 +1,27 @@
 #pragma once
 
-#include <vector>
 #include <string>
 
 #include "../domain/entities.h"
+#include "../infrastructure/repos.h"
 
 class LibraryService
 {
 	private:
 		/// The books repository
-		std::vector<Book> booksRepo = std::vector<Book>();
+		Repo<Book> booksRepo = Repo<Book>();
 
 	public:
 		/// Library service constructor
-		LibraryService(const std::vector<Book> &booksRepo = std::vector<Book>());
+		LibraryService(const Repo<Book> &booksRepo = Repo<Book>());
 
 		/// Library service destructor
 		~LibraryService();
 
 		/// Books repository getter
-		std::vector<Book> getBooksRepo() const { return this->booksRepo; }
+		Repo<Book> getBooksRepo() const { return this->booksRepo; }
 		/// Books repository setter
-		void setBooksRepo(std::vector<Book> const &value) { this->booksRepo = value; }
+		void setBooksRepo(Repo<Book> const &value) { this->booksRepo = value; }
 
 		/**
 		 * Gets books from the repo
@@ -29,10 +29,10 @@ class LibraryService
 		 * @param title Filter by title of the book
 		 * @param releaseYear Filter by release year of the book
 		 */
-		std::vector<Book> GetBooks(const std::string &title, const int &releaseYear) const;
-		std::vector<Book> GetBooks(const std::string &title) const;
-		std::vector<Book> GetBooks(const int &releaseYear) const;
-		std::vector<Book> GetBooks() const;
+		Repo<Book> GetBooks(const std::string &title, const int &releaseYear) const;
+		Repo<Book> GetBooks(const std::string &title) const;
+		Repo<Book> GetBooks(const int &releaseYear) const;
+		Repo<Book> GetBooks() const;
 
 		/**
 		 * Adds a book to the repo

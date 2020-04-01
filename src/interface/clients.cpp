@@ -12,13 +12,13 @@ LibraryClient::~LibraryClient()
 
 void LibraryClient::ListAllBooks() const
 {
-	std::vector<Book> books = this->getLibraryService().GetBooks();
-	if (books.empty())
+	Repo<Book> books = this->getLibraryService().GetBooks();
+	if (books.Empty())
 	{
 		this->io.PrintString("»No books to show!\n\n");
 		return;
 	}
-	for (int i = 0; i < static_cast<int>(books.size()); i++)
+	for (int i = 0; i < static_cast<int>(books.Size()); i++)
 	{
 		this->io.PrintString("──────────\n");
 		this->io.PrintString(
@@ -88,7 +88,7 @@ void LibraryClient::DeleteBook()
 void LibraryClient::ExitApplication() const
 {
 	this->io.PrintString("»Exiting application...\n\n");
-	exit(0);
+	this->getLibraryService().getBooksRepo().FreeElements();
 }
 
 void LibraryClient::RunApplication()
@@ -110,6 +110,7 @@ void LibraryClient::RunApplication()
 		{
 			case 0: 
 				this->ExitApplication();
+				return;
 				break;
 
 			case 1:
