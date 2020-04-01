@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 
 template <typename ElementType>
@@ -23,15 +25,15 @@ class Repo
 		RepoNode* NodeAtIndex(int index)
 		{
 			if (this->Empty()) // throw exception if repo is empty
-				throw std::string("Index out of bounds!");
+				throw std::string("index out of bounds");
 			RepoNode* currentNode = this->head;
 			for (int i = 0; i < index; i++) // iterating nodes until the requested one
 			{
 				// throw exception if the index is out of bounds
 				if (currentNode == NULL)
-					throw std::string("Index out of bounds!");
+					throw std::string("index out of bounds");
 				if (currentNode->next == NULL)
-					throw std::string("Index out of bounds!");
+					throw std::string("index out of bounds");
 
 				currentNode = currentNode->next; // step to the next node
 			}
@@ -48,7 +50,13 @@ class Repo
 		/// Repo destructor
 		~Repo()
 		{
+			this->head = NULL;
+		}
+
+		void FreeElements()
+		{
 			RepoNode* currentNode = this->head;
+			this->head = NULL;
 			while (currentNode) // iterating all nodes
 			{
 				RepoNode* nextNode = currentNode->next; // getting the next node
@@ -71,15 +79,15 @@ class Repo
 		ElementType &operator[](int index)
 		{
 			if (this->Empty()) // throw exception if repo is empty
-				throw std::string("Index out of bounds!");
+				throw std::string("index out of bounds");
 			RepoNode* currentNode = this->head;
 			for (int i = 0; i < index; i++) // iterating nodes until the requested one
 			{
 				// throw exception if the index is out of bounds
 				if (currentNode == NULL)
-					throw std::string("Index out of bounds!");
+					throw std::string("index out of bounds");
 				if (currentNode->next == NULL)
-					throw std::string("Index out of bounds!");
+					throw std::string("index out of bounds");
 
 				currentNode = currentNode->next; // step to the next node
 			}
@@ -160,6 +168,8 @@ class Repo
 			}
 			else // inserting at index
 			{
+				if (index > this->Size())
+					delete newNode;
 				newNode->next = this->NodeAtIndex(index - 1)->next;
 				this->NodeAtIndex(index - 1)->next = newNode;
 			}

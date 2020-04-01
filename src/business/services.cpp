@@ -1,6 +1,6 @@
 #include "./services.h"
 
-LibraryService::LibraryService(const std::vector<Book> &booksRepo)
+LibraryService::LibraryService(const Repo<Book> &booksRepo)
 {
 	// setting fields of LibraryService instance to parameter values
 	this->setBooksRepo(booksRepo);
@@ -9,22 +9,25 @@ LibraryService::LibraryService(const std::vector<Book> &booksRepo)
 LibraryService::~LibraryService()
 {
 	// setting fields of LibraryService instance to default values
-	this->setBooksRepo(std::vector<Book>());
+	this->setBooksRepo(Repo<Book>());
 }
 
-std::vector<Book> LibraryService::GetBooks(const std::string &title, const int &releaseYear) const 
+Repo<Book> LibraryService::GetBooks(const std::string &title, const int &releaseYear) const 
 {
+	// returning all books
 	return this->getBooksRepo();
 }
-std::vector<Book> LibraryService::GetBooks(const std::string &title) const 
+Repo<Book> LibraryService::GetBooks(const std::string &title) const 
 {
+	// returning all books
 	return this->getBooksRepo();
 }
-std::vector<Book> LibraryService::GetBooks(const int &releaseYear) const 
+Repo<Book> LibraryService::GetBooks(const int &releaseYear) const 
 {
+	// returning all books
 	return this->getBooksRepo();
 }
-std::vector<Book> LibraryService::GetBooks() const 
+Repo<Book> LibraryService::GetBooks() const 
 {
 	// returning all books
 	return this->getBooksRepo();
@@ -33,12 +36,12 @@ std::vector<Book> LibraryService::GetBooks() const
 void LibraryService::AddBookToRepo(const std::string &title, const std::string &author, const std::string &genre, const int &releaseYear)
 {
 	Book book = Book(title, author, genre, releaseYear);
-	this->booksRepo.push_back(book); // adding a new book to the end of the repo
+	this->booksRepo.Add(book); // adding a new book to the end of the repo
 }
 
 void LibraryService::ModifyBookInRepo(const std::string &titleSearch, const std::string &authorSearch, const std::string &title, const std::string &author, const std::string &genre, const int &releaseYear)
 {
-	for (int i = 0; i < static_cast<int>(this->booksRepo.size()); i++) // searching for the book with the given title and author
+	for (int i = 0; i < static_cast<int>(this->booksRepo.Size()); i++) // searching for the book with the given title and author
 	{
 		if (this->booksRepo[i].getTitle() == titleSearch && this->booksRepo[i].getAuthor() == authorSearch) // change book if found
 		{
@@ -54,8 +57,8 @@ void LibraryService::ModifyBookInRepo(const std::string &titleSearch, const std:
 			if (releaseYear != -1)
 			{ newBook.setReleaseYear(releaseYear); }
 
-			this->booksRepo.erase(this->booksRepo.begin() + i); // remove the old one
-			this->booksRepo.insert(this->booksRepo.begin() + i, newBook); // insert the new one
+			this->booksRepo.Erase(i); // remove the old one
+			this->booksRepo.Insert(newBook, i); // insert the new one
 
 			return;
 		}
@@ -65,11 +68,11 @@ void LibraryService::ModifyBookInRepo(const std::string &titleSearch, const std:
 
 void LibraryService::DeleteBookFromRepo(const std::string &titleSearch, const std::string &authorSearch)
 {
-	for (int i = 0; i < static_cast<int>(this->booksRepo.size()); i++) // searching for the book with the given title and author
+	for (int i = 0; i < static_cast<int>(this->booksRepo.Size()); i++) // searching for the book with the given title and author
 	{
 		if (this->booksRepo[i].getTitle() == titleSearch && this->booksRepo[i].getAuthor() == authorSearch) // change book if found
 		{
-			this->booksRepo.erase(this->booksRepo.begin() + i); // remove the old one
+			this->booksRepo.Erase(i); // remove the old one
 			return;
 		}
 	}
