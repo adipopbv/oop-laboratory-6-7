@@ -1,15 +1,16 @@
 #include <gtest/gtest.h>
 #include "../../src/infrastructure/repos.h"
+#include "../../src/domain/exceptions.h"
 
 TEST(Repo, SubscriptionOperator)
 {
 	Repo<int> repo = Repo<int>();
 	int element = 0;
-	ASSERT_ANY_THROW(repo[0]);
+	ASSERT_THROW(repo[0], IndexError);
 	repo.Add(element);
 	ASSERT_TRUE(repo[0] == 0);
 	ASSERT_TRUE(repo[0] == element);
-	ASSERT_ANY_THROW(repo[1]);
+	ASSERT_THROW(repo[1], IndexError);
 	repo[0] = 1;
 	ASSERT_TRUE(repo[0] == 1);
 	ASSERT_TRUE(repo[0] != element);
@@ -61,7 +62,7 @@ TEST(Repo, Insert)
 {
 	Repo<int> repo = Repo<int>();
 	int element1 = 1, element2 = 2, element3 = 3;
-	ASSERT_ANY_THROW(repo.Insert(element1, 1));
+	ASSERT_THROW(repo.Insert(element1, 1), IndexError);
 	repo.Insert(element1, 0);
 	ASSERT_TRUE(repo[0] == element1);
 	repo.Insert(element2, 1);

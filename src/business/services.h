@@ -3,6 +3,7 @@
 #include <string>
 
 #include "../domain/entities.h"
+#include "../domain/exceptions.h"
 #include "../infrastructure/repos.h"
 
 class LibraryService
