@@ -22,13 +22,13 @@ TEST(Repo, SubscriptionOperator)
 TEST(Repo, Size)
 {
 	Repo<int> repo = Repo<int>();
-	int element = 0;
+	int element1 = 1, element2 = 2, element3 = 3;
 	ASSERT_TRUE(repo.Size() == 0);
-	repo.Add(element);
+	repo.Add(element1);
 	ASSERT_TRUE(repo.Size() == 1);
-	repo.Add(element);
+	repo.Add(element2);
 	ASSERT_TRUE(repo.Size() == 2);
-	repo.Add(element, true);
+	repo.Add(element3, true);
 	ASSERT_TRUE(repo.Size() == 3);
 	repo.FreeElements();
 }

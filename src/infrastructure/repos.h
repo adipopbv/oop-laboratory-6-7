@@ -41,6 +41,13 @@ class Repo
 			return currentNode; // return reference to the node
 		}
 
+		void ValidateData(ElementType element)
+		{
+			for (int i = 0; i < this->Size(); i++)
+				if (element == this->operator[](i))
+					throw DuplicateError("element already in repo");
+		}
+
 	public:
 		/// Repo constructor
 		Repo()
@@ -130,6 +137,9 @@ class Repo
 		 */
 		void Add(ElementType element, bool begining = false)
 		{
+			// validating element
+			this->ValidateData(element);
+
 			// making a new node
 			RepoNode* newNode = new RepoNode();
 			newNode->element = element;
