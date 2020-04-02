@@ -10,6 +10,16 @@ LibraryClient::~LibraryClient()
 	this->setLibraryService(LibraryService());
 }
 
+void LibraryClient::PrintBook(Book const book) const
+{
+	this->getIO().PrintString(
+		"  ┌─Title: " + book.getTitle() + "\n" +
+		"  ├─Author: " + book.getAuthor() + "\n" +
+		"  ├─Genre: " + book.getGenre() + "\n" +
+		"  └─Release year: " + std::to_string(book.getReleaseYear()) + "\n"
+	);
+}
+
 void LibraryClient::ListAllBooks() const
 {
 	Repo<Book> books = this->getLibraryService().GetBooks();
@@ -21,12 +31,7 @@ void LibraryClient::ListAllBooks() const
 	for (int i = 0; i < static_cast<int>(books.Size()); i++)
 	{
 		this->getIO().PrintString("──────────\n");
-		this->getIO().PrintString(
-			"  ┌─Title: " + books[i].getTitle() + "\n" +
-			"  ├─Author: " + books[i].getAuthor() + "\n" +
-			"  ├─Genre: " + books[i].getGenre() + "\n" +
-			"  └─Release year: " + std::to_string(books[i].getReleaseYear()) + "\n"
-		);
+		this->PrintBook(books[i]);
 	}
 	this->getIO().PrintString("──────────\n\n");
 }
@@ -51,7 +56,7 @@ void LibraryClient::ModifyBook()
 	this->getIO().PrintString("  ╠═Book to be modified:\n");
 	std::string titleSearch = this->getIO().ReadString("  ║ ├─Title: ");
 	std::string authorSearch = this->getIO().ReadString("  ║ └─Author: ");
-	this->getIO().PrintString("  ╚═New book values (leave empty to not modify):\n");
+	this->getIO().PrintString("  ╚═New book values (leave field empty to not modify):\n");
 	std::string title = this->getIO().ReadString("    ├─Title: ");
 	std::string author = this->getIO().ReadString("    ├─Author: ");
 	std::string genre = this->getIO().ReadString("    ├─Genre: ");
@@ -74,6 +79,22 @@ void LibraryClient::DeleteBook()
 	this->getIO().PrintString("»Operation succesful!\n\n");
 }
 
+void LibraryClient::SearchBook()
+{
+	this->getIO().PrintString("»»Search book\n");
+	this->getIO().PrintString("  ╚═Fields to search by (leave field empty to ignore):\n");
+	std::string titleSearch = this->getIO().ReadString("    ├─Title: ");
+	std::string authorSearch = this->getIO().ReadString("    └─Author: ");
+	std::string genreSearch = this->getIO().ReadString("    └─Genre: ");
+	int releaseYearSearch = this->getIO().ReadInt("    └─Release year: ");
+
+	this->getIO().PrintString("\n");
+	Book searchedBook = this->libraryService.SearchBook(titleSearch, authorSearch, genreSearch, releaseYearSearch);
+	this->getIO().PrintString("──────────\n");
+	this->PrintBook(searchedBook);
+	this->getIO().PrintString("──────────\n\n");
+}
+
 void LibraryClient::ExitApplication() const
 {
 	this->getIO().PrintString("»Exiting application...\n\n");
@@ -89,7 +110,8 @@ void LibraryClient::RunApplication()
 		"  ╠═[1]: List all books\n" + 
 		"  ╠═[2]: Add book\n" +
 		"  ╠═[3]: Modify book\n" +
-		"  ╚═[4]: Delete book\n";
+		"  ╠═[4]: Delete book\n" +
+		"  ╚═[5]: Search book\n";
 	while (true)
 	{
 		try
@@ -118,6 +140,10 @@ void LibraryClient::RunApplication()
 	
 				case 4:
 					this->DeleteBook();
+					break;
+
+				case 5:
+					this->SearchBook();
 					break;
 	
 				default:
