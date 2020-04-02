@@ -80,6 +80,7 @@ class Repo
 		 *
 		 * @param element An element
 		 * @param begining Should the adding operation be done at the begining of the list or at the end, defaults to false
+		 * @throws Exception if element already in repo
 		 */
 		void Add(ElementType element, bool begining = false);
 
@@ -88,7 +89,7 @@ class Repo
 		 *
 		 * @param element The element to be inserted
 		 * @param index The position for insertion
-		 * @throws Exception if index is out of bounds
+		 * @throws Exception if index is out of bounds or if element already in repo
 		 */
 		void Insert(ElementType element, int index);
 
@@ -152,7 +153,7 @@ void Repo<ElementType>::ValidateExistance(ElementType element)
 	for (int i = 0; i < this->Size(); i++)
 		if (element == this->operator[](i)) // search for element in repo
 			return; // if found, all is good
-	throw DuplicateError("\nelement not found in repository"); // if not found throw exception
+	throw NotFoundError("\nelement not found in repository"); // if not found throw exception
 }
 
 template <typename ElementType>
@@ -249,6 +250,9 @@ void Repo<ElementType>::Add(ElementType element, bool begining)
 template <typename ElementType>
 void Repo<ElementType>::Insert(ElementType element, int index)
 {
+	// validating element
+	this->ValidateDuplicate(element);
+
 	// making a new node
 	RepoNode* newNode = new RepoNode();
 	newNode->element = element;

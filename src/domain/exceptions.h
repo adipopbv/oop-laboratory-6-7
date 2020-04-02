@@ -50,3 +50,11 @@ class EmptyRepoError: public AppException
 		/// Exception constructor
 		EmptyRepoError(std::string const message) :AppException(message) { }
 };
+
+class SearchFieldsError: public AppException
+{
+	public:
+		/// Exception constructor
+		SearchFieldsError(std::string const message) :AppException(message) { }
+};
+

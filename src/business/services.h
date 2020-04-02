@@ -31,8 +31,6 @@ class LibraryService
 		 * @param releaseYear Filter by release year of the book
 		 */
 		Repo<Book> GetBooks(const std::string &title, const int &releaseYear) const;
-		Repo<Book> GetBooks(const std::string &title) const;
-		Repo<Book> GetBooks(const int &releaseYear) const;
 		Repo<Book> GetBooks() const;
 
 		/**
@@ -42,6 +40,7 @@ class LibraryService
 		 * @param author The author of the book
 		 * @param genre The genre of the book
 		 * @param releaseYear The release year of the book
+		 * @throws Exception if book invalid or is duplicate
 		 */
 		void AddBookToRepo(const std::string &title = "", const std::string &author = "", const std::string &genre = "", const int &releaseYear = 0);
 
@@ -54,6 +53,7 @@ class LibraryService
 		 * @param author The new author of the book
 		 * @param genre The new genre of the book
 		 * @param releaseYear The new release year of the book
+		 * @throws Exception if the search fields are invalid, if the new book is invalid, if it becomes duplicated after the modification or if book was not found
 		 */
 		void ModifyBookInRepo(const std::string &titleSearch, const std::string &authorSearch, const std::string &title = "", const std::string &author = "", const std::string &genre = "", const int &releaseYear = 0);
 
@@ -62,6 +62,19 @@ class LibraryService
 		 *
 		 * @param titleSearch The title to search by
 		 * @param authorSearch The author to search by
+		 * @throws Exception if the search fields are invalid or if book was not found
 		 */
 		void DeleteBookFromRepo(const std::string &titleSearch, const std::string &authorSearch);
+
+		/**
+		 * Searches a book in the repo by title, author, genre and/or release year
+		 *
+		 * @param titleSearch The title to search by
+		 * @param authorSearch The author to search by
+		 * @param genreSearch The genre to search by
+		 * @param releaseYearSearch The release year to search by
+		 * @returns The first book match from the repo
+		 * @throws Exception if empty repo, if no fields valid or book not found
+		 */
+		Book SearchBook(const std::string &titleSearch, const std::string &authorSearch, const std::string &genreSearch, const int &releaseYearSearch);
 };

@@ -45,7 +45,7 @@ TEST(Repo, Empty)
 TEST(Repo, Add)
 {
 	Repo<int> repo = Repo<int>();
-	int element1 = 1, element2 = 2, element3 = 3;
+	int element1 = 1, element2 = 2, element3 = 3, element4 = 2;
 	repo.Add(element1);
 	ASSERT_TRUE(repo[0] == element1);
 	repo.Add(element2);
@@ -55,13 +55,14 @@ TEST(Repo, Add)
 	ASSERT_TRUE(repo[0] == element3);
 	ASSERT_TRUE(repo[1] == element1);
 	ASSERT_TRUE(repo[2] == element2);
+	ASSERT_THROW(repo.Add(element4), DuplicateError);
 	repo.FreeRepo();
 }
 
 TEST(Repo, Insert)
 {
 	Repo<int> repo = Repo<int>();
-	int element1 = 1, element2 = 2, element3 = 3;
+	int element1 = 1, element2 = 2, element3 = 3, element4 = 4;
 	ASSERT_THROW(repo.Insert(element1, 1), IndexError);
 	repo.Insert(element1, 0);
 	ASSERT_TRUE(repo[0] == element1);
@@ -72,8 +73,10 @@ TEST(Repo, Insert)
 	ASSERT_TRUE(repo[0] == element1);
 	ASSERT_TRUE(repo[1] == element3);
 	ASSERT_TRUE(repo[2] == element2);
-	repo.Insert(element3, 0);
-	ASSERT_TRUE(repo[0] == element3);
+	ASSERT_THROW(repo.Insert(element3, 2), DuplicateError);
+	ASSERT_THROW(repo.Insert(element4, 4), IndexError);
+	repo.Insert(element4, 0);
+	ASSERT_TRUE(repo[0] == element4);
 	ASSERT_TRUE(repo[1] == element1);
 	ASSERT_TRUE(repo[2] == element3);
 	ASSERT_TRUE(repo[3] == element2);
@@ -87,10 +90,35 @@ TEST(Repo, Erase)
 	repo.Add(element1);
 	repo.Add(element2);
 	repo.Add(element3);
+	ASSERT_THROW(repo.Erase(3), IndexError);
 	repo.Erase(1);
 	ASSERT_TRUE(repo[0] == element1);
 	ASSERT_TRUE(repo[1] == element3);
 	repo.Erase(0);
 	ASSERT_TRUE(repo[0] == element3);
+	repo.FreeRepo();
+}
+
+TEST(Repo, GetElement)
+{
+	Repo<int> repo = Repo<int>();
+	int element1 = 1, element2 = 1;
+	ASSERT_THROW(repo.GetElement([](int currentElem){ return true; }), EmptyRepoError);
+	repo.Add(element1);
+	ASSERT_TRUE(repo.GetElement([&element2](int currentElem){ return currentElem == element2; }) == element1);
+	element2 = 2;
+	ASSERT_THROW(repo.GetElement([&element2](int currentElem){ return currentElem == element2; }), NotFoundError);
+	repo.FreeRepo();
+}
+
+TEST(Repo, GetIndexOfElement)
+{
+	Repo<int> repo = Repo<int>();
+	int element1 = 1, element2 = 1;
+	ASSERT_THROW(repo.GetIndexOfElement([](int currentElem){ return true; }), EmptyRepoError);
+	repo.Add(element1);
+	ASSERT_TRUE(repo.GetIndexOfElement([&element2](int currentElem){ return currentElem == element2; }) == 0);
+	element2 = 2;
+	ASSERT_THROW(repo.GetIndexOfElement([&element2](int currentElem){ return currentElem == element2; }), NotFoundError);
 	repo.FreeRepo();
 }

@@ -24,6 +24,9 @@ class LibraryClient
 		/// Io getter
 		TerminalIO getIO() const { return this->io; }
 
+		/// Prints a book's data
+		void PrintBook(Book const book) const;
+
 		/// Lists all books
 		void ListAllBooks() const;
 
@@ -35,6 +38,9 @@ class LibraryClient
 
 		/// Deletes a book from the repository
 		void DeleteBook();
+
+		/// Searches a book in the repository
+		void SearchBook();
 
 		/// Exits application
 		void ExitApplication() const;
