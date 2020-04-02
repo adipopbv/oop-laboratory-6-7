@@ -16,21 +16,21 @@ TEST(Repo, SubscriptionOperator)
 	ASSERT_TRUE(repo[0] != element);
 	element = 2;
 	ASSERT_TRUE(repo[0] == 1);
-	repo.FreeElements();
+	repo.FreeRepo();
 }
 
 TEST(Repo, Size)
 {
 	Repo<int> repo = Repo<int>();
-	int element = 0;
+	int element1 = 1, element2 = 2, element3 = 3;
 	ASSERT_TRUE(repo.Size() == 0);
-	repo.Add(element);
+	repo.Add(element1);
 	ASSERT_TRUE(repo.Size() == 1);
-	repo.Add(element);
+	repo.Add(element2);
 	ASSERT_TRUE(repo.Size() == 2);
-	repo.Add(element, true);
+	repo.Add(element3, true);
 	ASSERT_TRUE(repo.Size() == 3);
-	repo.FreeElements();
+	repo.FreeRepo();
 }
 
 TEST(Repo, Empty)
@@ -39,7 +39,7 @@ TEST(Repo, Empty)
 	ASSERT_TRUE(repo.Empty());
 	repo.Add(0);
 	ASSERT_FALSE(repo.Empty());
-	repo.FreeElements();
+	repo.FreeRepo();
 }
 
 TEST(Repo, Add)
@@ -55,7 +55,7 @@ TEST(Repo, Add)
 	ASSERT_TRUE(repo[0] == element3);
 	ASSERT_TRUE(repo[1] == element1);
 	ASSERT_TRUE(repo[2] == element2);
-	repo.FreeElements();
+	repo.FreeRepo();
 }
 
 TEST(Repo, Insert)
@@ -77,7 +77,7 @@ TEST(Repo, Insert)
 	ASSERT_TRUE(repo[1] == element1);
 	ASSERT_TRUE(repo[2] == element3);
 	ASSERT_TRUE(repo[3] == element2);
-	repo.FreeElements();
+	repo.FreeRepo();
 }
 
 TEST(Repo, Erase)
@@ -92,5 +92,5 @@ TEST(Repo, Erase)
 	ASSERT_TRUE(repo[1] == element3);
 	repo.Erase(0);
 	ASSERT_TRUE(repo[0] == element3);
-	repo.FreeElements();
+	repo.FreeRepo();
 }

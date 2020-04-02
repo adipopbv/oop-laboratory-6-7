@@ -43,3 +43,10 @@ class DuplicateError: public AppException
 		/// Exception constructor
 		DuplicateError(std::string const message) :AppException(message) { }
 };
+
+class EmptyRepoError: public AppException
+{
+	public:
+		/// Exception constructor
+		EmptyRepoError(std::string const message) :AppException(message) { }
+};

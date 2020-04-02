@@ -77,7 +77,7 @@ void LibraryClient::DeleteBook()
 void LibraryClient::ExitApplication() const
 {
 	this->getIO().PrintString("»Exiting application...\n\n");
-	this->getLibraryService().getBooksRepo().FreeElements();
+	this->getLibraryService().getBooksRepo().FreeRepo();
 }
 
 void LibraryClient::RunApplication()
@@ -124,12 +124,12 @@ void LibraryClient::RunApplication()
 					this->getIO().PrintString("»Invalid command!\n\n");
 					break;
 			}
-			this->getIO().PrintString("═══════════════════════\n\n");
 		}
 		catch (AppException& e)
 		{
 			this->getIO().PrintString("»Error: " + e.getMessage() + "\n\n");
 		}
+		this->getIO().PrintString("═══════════════════════\n\n");
 	}
 }
 
