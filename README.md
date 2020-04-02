@@ -64,5 +64,10 @@ Also, I implemented the following functionalities:
 4. Modifying book
 5. Deleting book
 
-__Note__: everything done at runtime will not be saved to disk!
+__Note__: nothing done at runtime will be saved to disk!
 
+### Iteration 2:
+
+Added tests based on the google unit testing framework, implemented a custom repository with universal simple linked list, added exceptions and validations.
+
+__Note__: saving to disk still not supported!
