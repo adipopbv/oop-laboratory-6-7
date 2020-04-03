@@ -89,4 +89,13 @@ class LibraryService
 		 * @throws Exception if there are no books in repo, if filter is invalid or no books remain after filtering
 		 */
 		Repo<Book> GetFilteredBooks(const int &releaseYearFilter);
+
+		/// Sorts the books repo by title
+		void SortBooksByTitle();
+
+		/// Sorts the books repo by author
+		void SortBooksByAuthor();
+
+		/// Sorts the books repo by release year and genre
+		void SortBooksByReleaseYearAndGenre();
 };

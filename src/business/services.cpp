@@ -140,3 +140,36 @@ Repo<Book> LibraryService::GetFilteredBooks(const int &releaseYearFilter)
 	return filteredBooks;
 }
 
+void LibraryService::SortBooksByTitle()
+{
+	// getting a copy of the repo
+	Repo<Book> tempRepo = this->getBooksRepo();
+	for (int i = 0; i < tempRepo.Size() - 1; i++)
+		for (int j = i + 1; j < tempRepo.Size(); j++)
+			if (tempRepo[i].getTitle() > tempRepo[j].getTitle())
+				tempRepo.Swap(i, j); // swap books
+	this->setBooksRepo(tempRepo);
+}
+
+void LibraryService::SortBooksByAuthor()
+{
+	Repo<Book> tempRepo = this->getBooksRepo();
+	for (int i = 0; i < tempRepo.Size() - 1; i++)
+		for (int j = i + 1; j < tempRepo.Size(); j++)
+			if (tempRepo[i].getAuthor() > tempRepo[j].getAuthor())
+				tempRepo.Swap(i, j); // swap books
+	this->setBooksRepo(tempRepo);
+}
+
+void LibraryService::SortBooksByReleaseYearAndGenre()
+{
+	Repo<Book> tempRepo = this->getBooksRepo();
+	for (int i = 0; i < tempRepo.Size() - 1; i++)
+		for (int j = i + 1; j < tempRepo.Size(); j++)
+			if (tempRepo[i].getReleaseYear() > tempRepo[j].getReleaseYear()
+					|| (tempRepo[i].getReleaseYear() == tempRepo[j].getReleaseYear()
+					&& tempRepo[i].getGenre() > tempRepo[j].getGenre()))
+				tempRepo.Swap(i, j); // swap books if release years differ or if equal and genres differ
+	this->setBooksRepo(tempRepo);
+}
+

@@ -45,6 +45,9 @@ class LibraryClient
 		/// Filters books by title and/or release year
 		void FilterBooks();
 
+		/// Sorts books by title, author or release year and genre
+		void SortBooks();
+
 		/// Exits application
 		void ExitApplication() const;
 
