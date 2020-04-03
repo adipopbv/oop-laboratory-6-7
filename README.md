@@ -2,18 +2,36 @@
 
 ## Table of Contents
 
-- [Details](#Details)
-- [Assignments](#Assignments)
-	- [Code specifications](#Code-specifications)
-	- [App specifications](#App-specifications)
-- [Solution](#Solution)
-	- [Iteration 1](#Iteration-1)
+- [Details](#details)
+- [Installation & usage](#installation--usage)
+- [Assignments](#assignments)
+	- [Code specifications](#code-specifications)
+	- [App specifications](#app-specifications)
+- [Solution](#solution)
+	- [Iteration 1](#iteration-1)
+	- [Iteration 2](#iteration-2)
 
 ## Details
 
 A __library management__ application.
 
-OOP Laboratory 6-7 project source files.
+The app allows temporary storing of information about books, helps manage a library and acts like a small, temporary database manager for books.
+
+__Notes:__ For now, only a _Command-Line Interface_ (CLI) is available for the app.
+
+## Installation & usage
+
+#### Linux:
+
+__Downloading:__ To download the application, go to the [releases tab](https://github.com/adipopbv/oop-laboratory-6-7/releases) and select the wanted version ([latest version](https://github.com/adipopbv/oop-laboratory-6-7/releases/latest) is recommended).
+
+__Installation:__ No installation needed. Just place the downloaded executable where you want and run it in a terminal.
+
+#### Other platforms:
+
+Support is not currently given for other platforms, but it should be able to run on all Unix-like operating systems and on Windows if compiling the source code manualy with MinGW or Cygwin, as explained [here](https://docs.microsoft.com/en-us/cpp/porting/porting-from-unix-to-win32?view=vs-2019).
+
+
 
 ## Assignments
 
@@ -72,6 +90,7 @@ Added tests based on the google unit testing framework, implemented a custom rep
 
 Also, I implemented the following functionalities:
 1. Searching book
-2. Filtering books
+2. Filtering books by title or release year
+3. Sorting books by title, author or release year and genre
 
 __Note__: saving to disk still not supported!
