@@ -42,6 +42,9 @@ class LibraryClient
 		/// Searches a book in the repository
 		void SearchBook();
 
+		/// Filters books by title and/or release year
+		void FilterBooks();
+
 		/// Exits application
 		void ExitApplication() const;
 

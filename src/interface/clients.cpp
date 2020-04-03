@@ -84,14 +84,55 @@ void LibraryClient::SearchBook()
 	this->getIO().PrintString("»»Search book\n");
 	this->getIO().PrintString("  ╚═Fields to search by (leave field empty to ignore):\n");
 	std::string titleSearch = this->getIO().ReadString("    ├─Title: ");
-	std::string authorSearch = this->getIO().ReadString("    └─Author: ");
-	std::string genreSearch = this->getIO().ReadString("    └─Genre: ");
+	std::string authorSearch = this->getIO().ReadString("    ├─Author: ");
+	std::string genreSearch = this->getIO().ReadString("    ├─Genre: ");
 	int releaseYearSearch = this->getIO().ReadInt("    └─Release year: ");
 
 	this->getIO().PrintString("\n");
 	Book searchedBook = this->libraryService.SearchBook(titleSearch, authorSearch, genreSearch, releaseYearSearch);
 	this->getIO().PrintString("──────────\n");
 	this->PrintBook(searchedBook);
+	this->getIO().PrintString("──────────\n\n");
+}
+
+void LibraryClient::FilterBooks()
+{
+	this->getIO().PrintString("»»Filter books\n");
+	this->getIO().PrintString("  ╚═Fields to filter by:\n");
+	this->getIO().PrintString("    ╠═[1]: Title\n");
+	this->getIO().PrintString("    ╚═[2]: Release year\n");
+
+	std::string titleFilter;
+	int releaseYearSearch;
+	Repo<Book> filteredBooks;
+
+	this->getIO().PrintString("\n");
+	int option = this->getIO().ReadInt("»Enter option: ");
+	this->getIO().PrintString("\n");
+	switch (option)
+	{
+		case 1:
+			titleFilter = this->getIO().ReadString("»Enter title: ");
+			this->getIO().PrintString("\n");
+			filteredBooks = this->getLibraryService().GetFilteredBooks(titleFilter);
+			break;
+
+		case 2:
+			releaseYearSearch = this->getIO().ReadInt("»Enter release year: ");
+			this->getIO().PrintString("\n");
+			filteredBooks = this->getLibraryService().GetFilteredBooks(releaseYearSearch);
+			break;
+
+		default:
+			this->getIO().PrintString("»Invalid command!\n\n");
+			return;
+			break;
+	}
+	for (int i = 0; i < filteredBooks.Size(); i++)
+	{
+		this->getIO().PrintString("──────────\n");
+		this->PrintBook(filteredBooks[i]);
+	}
 	this->getIO().PrintString("──────────\n\n");
 }
 
@@ -111,7 +152,8 @@ void LibraryClient::RunApplication()
 		"  ╠═[2]: Add book\n" +
 		"  ╠═[3]: Modify book\n" +
 		"  ╠═[4]: Delete book\n" +
-		"  ╚═[5]: Search book\n";
+		"  ╠═[5]: Search book\n" +
+		"  ╚═[6]: Filter books\n";
 	while (true)
 	{
 		try
@@ -144,6 +186,10 @@ void LibraryClient::RunApplication()
 
 				case 5:
 					this->SearchBook();
+					break;
+
+				case 6:
+					this->FilterBooks();
 					break;
 	
 				default:

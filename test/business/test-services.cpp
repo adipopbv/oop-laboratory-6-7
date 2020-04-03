@@ -8,11 +8,9 @@ TEST(LibraryService, GetBooks)
 	books.Add(book);
 	LibraryService service = LibraryService();
 	ASSERT_THROW(service.GetBooks()[0], EmptyRepoError);
-	ASSERT_THROW(service.GetBooks("ceva", 2020)[0], EmptyRepoError);
 	service.getBooksRepo().FreeRepo();
 	service = LibraryService(books);
 	ASSERT_TRUE(service.GetBooks()[0] == books[0]);
-	ASSERT_TRUE(service.GetBooks("ceva", 2020)[0] == books[0]);
 	books.FreeRepo();
 }
 
@@ -78,3 +76,26 @@ TEST(LibraryService, SearchBook)
 	service.getBooksRepo().FreeRepo();
 }
 
+TEST(LibraryService, GetFilteredBooks)
+{
+	Book book1 = Book("ceva", "cineva", "careva", 2020);
+	Book book2 = Book("ceva", "se", "intampla", 301);
+	Book book3 = Book("ce", "se", "intampla", 2020);
+	LibraryService service = LibraryService();
+	ASSERT_THROW(service.GetFilteredBooks("ceva"), EmptyRepoError);
+	ASSERT_THROW(service.GetFilteredBooks(2020), EmptyRepoError);
+	ASSERT_THROW(service.GetFilteredBooks(""), SearchFieldsError);
+	ASSERT_THROW(service.GetFilteredBooks(-20), SearchFieldsError);
+	service.AddBookToRepo("ceva", "cineva", "careva", 2020);
+	service.AddBookToRepo("ceva", "se", "intampla", 301);
+	service.AddBookToRepo("ce", "se", "intampla", 2020);
+	ASSERT_THROW(service.GetFilteredBooks("va"), NotFoundError);
+	ASSERT_THROW(service.GetFilteredBooks(1900), NotFoundError);
+	Repo<Book> filteredBooks = service.GetFilteredBooks("ceva");
+	ASSERT_TRUE(filteredBooks[0] == book1 && filteredBooks[1] == book2);
+	filteredBooks.FreeRepo();
+	filteredBooks = service.GetFilteredBooks(2020);
+	ASSERT_TRUE(filteredBooks[0] == book1 && filteredBooks[1] == book3);
+	filteredBooks.FreeRepo();
+	service.getBooksRepo().FreeRepo();
+}
