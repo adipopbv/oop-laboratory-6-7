@@ -136,6 +136,43 @@ void LibraryClient::FilterBooks()
 	this->getIO().PrintString("──────────\n\n");
 }
 
+void LibraryClient::SortBooks()
+{
+	this->getIO().PrintString("»»Sort books\n");
+	this->getIO().PrintString("  ╚═Fields to sort by:\n");
+	this->getIO().PrintString("    ╠═[1]: Title\n");
+	this->getIO().PrintString("    ╠═[2]: Author\n");
+	this->getIO().PrintString("    ╚═[3]: Release year and genre\n");
+
+	this->getIO().PrintString("\n");
+	int option = this->getIO().ReadInt("»Enter option: ");
+	this->getIO().PrintString("\n");
+	switch (option)
+	{
+		case 1:
+			this->getIO().PrintString("\n");
+			this->getLibraryService().SortBooksByTitle();
+			break;
+
+		case 2:
+			this->getIO().PrintString("\n");
+			this->getLibraryService().SortBooksByAuthor();
+			break;
+
+		case 3:
+			this->getIO().PrintString("\n");
+			this->getLibraryService().SortBooksByReleaseYearAndGenre();
+			break;
+
+		default:
+			this->getIO().PrintString("»Invalid command!\n\n");
+			return;
+			break;
+	}
+
+	this->ListAllBooks();
+}
+
 void LibraryClient::ExitApplication() const
 {
 	this->getIO().PrintString("»Exiting application...\n\n");
@@ -153,7 +190,8 @@ void LibraryClient::RunApplication()
 		"  ╠═[3]: Modify book\n" +
 		"  ╠═[4]: Delete book\n" +
 		"  ╠═[5]: Search book\n" +
-		"  ╚═[6]: Filter books\n";
+		"  ╠═[6]: Filter books\n" +
+		"  ╚═[7]: Sort books\n";
 	while (true)
 	{
 		try
@@ -190,6 +228,10 @@ void LibraryClient::RunApplication()
 
 				case 6:
 					this->FilterBooks();
+					break;
+
+				case 7:
+					this->SortBooks();
 					break;
 	
 				default:

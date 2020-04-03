@@ -42,6 +42,20 @@ TEST(Repo, Empty)
 	repo.FreeRepo();
 }
 
+TEST(Repo, Swap)
+{
+	Repo<int> repo = Repo<int>();
+	int element1 = 1, element2 = 2;
+	repo.Add(element1);
+	repo.Add(element2);
+	ASSERT_TRUE(repo[0] == element1 && repo[1] == element2);
+	ASSERT_THROW(repo.Swap(0, 3), IndexError);
+	ASSERT_THROW(repo.Swap(8, -3), IndexError);
+	repo.Swap(0, 1);
+	ASSERT_TRUE(repo[0] == element2 && repo[1] == element1);
+	repo.FreeRepo();
+}
+
 TEST(Repo, Add)
 {
 	Repo<int> repo = Repo<int>();

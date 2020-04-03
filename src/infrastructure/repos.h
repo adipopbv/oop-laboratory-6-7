@@ -76,6 +76,15 @@ class Repo
 		bool Empty() const;
 
 		/**
+		 * Swaps tow elements
+		 *
+		 * @param first The firs element's index
+		 * @param second The second's element index
+		 * @throw Exception if first or secod index are out of bounds or equal
+		 */
+		void Swap(const int first, const int second);
+
+		/**
 		 * Adds element pointer to the begining of the repo
 		 *
 		 * @param element An element
@@ -221,6 +230,17 @@ template <typename ElementType>
 bool Repo<ElementType>::Empty() const
 {
 	return (this->head == NULL) ? true : false; // repo empty if there are no nodes
+}
+
+template <typename ElementType>
+void Repo<ElementType>::Swap(const int first, const int second)
+{
+	if (first > this->Size() - 1 || first < 0 || second > this->Size() - 1 || second < 0 || first == second)
+		throw IndexError("\ninvalid indexes");
+	// swaping elements
+	ElementType temp = this->operator[](first);
+	this->operator[](first) = this->operator[](second);
+	this->operator[](second) = temp;
 }
 
 template <typename ElementType>
