@@ -24,13 +24,7 @@ class LibraryService
 		/// Books repository setter
 		void setBooksRepo(Repo<Book> const &value) { this->booksRepo = value; }
 
-		/**
-		 * Gets books from the repo
-		 *
-		 * @param title Filter by title of the book
-		 * @param releaseYear Filter by release year of the book
-		 */
-		Repo<Book> GetBooks(const std::string &title, const int &releaseYear) const;
+		/// Gets all books from the repo
 		Repo<Book> GetBooks() const;
 
 		/**
@@ -77,4 +71,22 @@ class LibraryService
 		 * @throws Exception if empty repo, if no fields valid or book not found
 		 */
 		Book SearchBook(const std::string &titleSearch, const std::string &authorSearch, const std::string &genreSearch, const int &releaseYearSearch);
+
+		/**
+		 * Gets books from the repo, filtered by title
+		 *
+		 * @param titleFilter The title to filter with
+		 * @returns The books repo, filtered by title
+		 * @throws Exception if there are no books in repo, if filter is invalid or no books remain after filtering
+		 */
+		Repo<Book> GetFilteredBooks(const std::string &titleFilter);
+
+		/**
+		 * Gets books from the repo, filtered by release year
+		 *
+		 * @param releaseYearFilter The release year to filter with
+		 * @returns The books repo, filtered by release year
+		 * @throws Exception if there are no books in repo, if filter is invalid or no books remain after filtering
+		 */
+		Repo<Book> GetFilteredBooks(const int &releaseYearFilter);
 };

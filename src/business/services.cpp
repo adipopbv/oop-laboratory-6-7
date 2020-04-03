@@ -12,13 +12,6 @@ LibraryService::~LibraryService()
 	this->setBooksRepo(Repo<Book>());
 }
 
-Repo<Book> LibraryService::GetBooks(const std::string &title, const int &releaseYear) const 
-{
-	if (this->getBooksRepo().Empty()) // throw exception if empty repo
-		throw EmptyRepoError("no book in repository");
-	// returning all books
-	return this->getBooksRepo();
-}
 Repo<Book> LibraryService::GetBooks() const 
 {
 	if (this->getBooksRepo().Empty()) // throw exception if empty repo
@@ -112,3 +105,38 @@ Book LibraryService::SearchBook(const std::string &titleSearch, const std::strin
 	);
 	return searchedBook;
 }
+
+Repo<Book> LibraryService::GetFilteredBooks(const std::string &titleFilter)
+{
+	if (titleFilter.empty()) // exception if filter invalid
+		throw SearchFieldsError("\ninvalid filter value");
+	if (this->getBooksRepo().Empty()) // exception if repo empty
+		throw EmptyRepoError("\nthe repository is empty");
+
+	Repo<Book> filteredBooks = Repo<Book>(); // making a new repo to put all needed books into
+
+	for (int i = 0; i < this->getBooksRepo().Size(); i++) // iterating all books
+		if (this->getBooksRepo()[i].getTitle() == titleFilter) // getting books with the given title
+			filteredBooks.Add(this->getBooksRepo()[i]);
+	if (filteredBooks.Empty()) // if no books whit that title was found, throw exception
+		throw NotFoundError("\nno book has that title"); 
+	return filteredBooks;
+}
+
+Repo<Book> LibraryService::GetFilteredBooks(const int &releaseYearFilter)
+{
+	if (releaseYearFilter < 0) // exception if filer invalid
+		throw SearchFieldsError("\ninvalid filter value");
+	if (this->getBooksRepo().Empty()) // exception if repo empty
+		throw EmptyRepoError("\nthe repository is empty");
+
+	Repo<Book> filteredBooks = Repo<Book>(); // making a new repo to put all needed books into
+
+	for (int i = 0; i < this->getBooksRepo().Size(); i++) // iterating all books
+		if (this->getBooksRepo()[i].getReleaseYear() == releaseYearFilter) // getting books with the given release year
+			filteredBooks.Add(this->getBooksRepo()[i]);
+	if (filteredBooks.Empty()) // if no books whit that release year was found, throw exception
+		throw NotFoundError("no book has that release year"); 
+	return filteredBooks;
+}
+
