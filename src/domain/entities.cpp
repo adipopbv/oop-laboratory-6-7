@@ -19,18 +19,18 @@ Book::~Book()
 	this->setReleaseYear(0);
 }
 
-const void Book::ValidateData(const std::string title, const std::string author, const std::string genre, const int releaseYear) const
+void Book::ValidateData(const std::string title, const std::string author, const std::string genre, const int releaseYear) const
 {
 	std::string message = "";
 	if (title.empty())
-		message += "\ninvalid title";
+	{ message += "\ninvalid title"; }
 	if (author.empty())
-		message += "\ninvalid author";
+	{ message += "\ninvalid author"; }
 	if (genre.empty())
-		message += "\ninvalid genre";
+	{ message += "\ninvalid genre"; }
 	if (releaseYear < 0)
-		message += "\ninvalid release year";
+	{ message += "\ninvalid release year"; }
 	
 	if (!message.empty())
-		throw ValidationError(message);
+	{ throw ValidationError(message); }
 }

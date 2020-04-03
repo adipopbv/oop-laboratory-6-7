@@ -15,7 +15,7 @@ LibraryService::~LibraryService()
 Repo<Book> LibraryService::GetBooks() const 
 {
 	if (this->getBooksRepo().Empty()) // throw exception if empty repo
-		throw EmptyRepoError("no book in repository");
+	{ throw EmptyRepoError("no book in repository"); }
 	// returning all books
 	return this->getBooksRepo();
 }
@@ -30,7 +30,7 @@ void LibraryService::ModifyBookInRepo(const std::string &titleSearch, const std:
 {
 	// validating search fields
 	if (titleSearch.empty() || authorSearch.empty())
-		throw SearchFieldsError("nothing to search by");
+	{ throw SearchFieldsError("nothing to search by"); }
 
 	// making a working copy of the repo
 	Repo<Book> tempRepo = this->getBooksRepo();
@@ -65,7 +65,7 @@ void LibraryService::DeleteBookFromRepo(const std::string &titleSearch, const st
 {
 	// validating search fields
 	if (titleSearch.empty() || authorSearch.empty())
-		throw SearchFieldsError("nothing to search by");
+	{ throw SearchFieldsError("nothing to search by"); }
 
 	// making a working copy of the repo
 	Repo<Book> tempRepo = this->getBooksRepo();
@@ -85,7 +85,7 @@ void LibraryService::DeleteBookFromRepo(const std::string &titleSearch, const st
 Book LibraryService::SearchBook(const std::string &titleSearch, const std::string &authorSearch, const std::string &genreSearch, const int &releaseYearSearch)
 {
 	if (titleSearch.empty() && authorSearch.empty() && genreSearch.empty() && releaseYearSearch == -1)
-		throw SearchFieldsError("\nno search fields entered"); // throw exception if no searche fields entered
+	{ throw SearchFieldsError("\nno search fields entered"); } // throw exception if no searche fields entered
 
 	Book searchedBook = this->getBooksRepo().GetElement(
 		[ &titleSearch, &authorSearch, &genreSearch, &releaseYearSearch ]
@@ -93,13 +93,13 @@ Book LibraryService::SearchBook(const std::string &titleSearch, const std::strin
 		{ 
 			bool found = true;
 			if (!titleSearch.empty()) // search by title
-				found = found && searchedBook.getTitle() == titleSearch;
+			{ found = found && searchedBook.getTitle() == titleSearch; } 
 			if (!authorSearch.empty()) // search by author
-				found = found && searchedBook.getAuthor() == authorSearch;
+			{ found = found && searchedBook.getAuthor() == authorSearch; }
 			if (!genreSearch.empty()) // search by genre
-				found = found && searchedBook.getGenre() == genreSearch;
+			{ found = found && searchedBook.getGenre() == genreSearch; }
 			if (releaseYearSearch != -1) // search by release year
-				found = found && searchedBook.getReleaseYear() == releaseYearSearch;
+			{ found = found && searchedBook.getReleaseYear() == releaseYearSearch; }
 			return found;
 		}
 	);
@@ -109,34 +109,38 @@ Book LibraryService::SearchBook(const std::string &titleSearch, const std::strin
 Repo<Book> LibraryService::GetFilteredBooks(const std::string &titleFilter)
 {
 	if (titleFilter.empty()) // exception if filter invalid
-		throw SearchFieldsError("\ninvalid filter value");
+	{ throw SearchFieldsError("\ninvalid filter value"); }
 	if (this->getBooksRepo().Empty()) // exception if repo empty
-		throw EmptyRepoError("\nthe repository is empty");
+	{ throw EmptyRepoError("\nthe repository is empty"); }
 
 	Repo<Book> filteredBooks = Repo<Book>(); // making a new repo to put all needed books into
 
 	for (int i = 0; i < this->getBooksRepo().Size(); i++) // iterating all books
+	{
 		if (this->getBooksRepo()[i].getTitle() == titleFilter) // getting books with the given title
-			filteredBooks.Add(this->getBooksRepo()[i]);
+		{ filteredBooks.Add(this->getBooksRepo()[i]); }
+	}
 	if (filteredBooks.Empty()) // if no books whit that title was found, throw exception
-		throw NotFoundError("\nno book has that title"); 
+	{ throw NotFoundError("\nno book has that title"); } 
 	return filteredBooks;
 }
 
 Repo<Book> LibraryService::GetFilteredBooks(const int &releaseYearFilter)
 {
 	if (releaseYearFilter < 0) // exception if filer invalid
-		throw SearchFieldsError("\ninvalid filter value");
+	{ throw SearchFieldsError("\ninvalid filter value"); }
 	if (this->getBooksRepo().Empty()) // exception if repo empty
-		throw EmptyRepoError("\nthe repository is empty");
+	{ throw EmptyRepoError("\nthe repository is empty"); }
 
 	Repo<Book> filteredBooks = Repo<Book>(); // making a new repo to put all needed books into
 
 	for (int i = 0; i < this->getBooksRepo().Size(); i++) // iterating all books
+	{
 		if (this->getBooksRepo()[i].getReleaseYear() == releaseYearFilter) // getting books with the given release year
-			filteredBooks.Add(this->getBooksRepo()[i]);
+		{ filteredBooks.Add(this->getBooksRepo()[i]); }
+	}
 	if (filteredBooks.Empty()) // if no books whit that release year was found, throw exception
-		throw NotFoundError("no book has that release year"); 
+	{ throw NotFoundError("no book has that release year"); }
 	return filteredBooks;
 }
 
@@ -145,9 +149,13 @@ void LibraryService::SortBooksByTitle()
 	// getting a copy of the repo
 	Repo<Book> tempRepo = this->getBooksRepo();
 	for (int i = 0; i < tempRepo.Size() - 1; i++)
+	{
 		for (int j = i + 1; j < tempRepo.Size(); j++)
+		{
 			if (tempRepo[i].getTitle() > tempRepo[j].getTitle())
-				tempRepo.Swap(i, j); // swap books
+			{ tempRepo.Swap(i, j); } // swap books
+		}
+	}
 	this->setBooksRepo(tempRepo);
 }
 
@@ -155,9 +163,13 @@ void LibraryService::SortBooksByAuthor()
 {
 	Repo<Book> tempRepo = this->getBooksRepo();
 	for (int i = 0; i < tempRepo.Size() - 1; i++)
+	{
 		for (int j = i + 1; j < tempRepo.Size(); j++)
+		{
 			if (tempRepo[i].getAuthor() > tempRepo[j].getAuthor())
-				tempRepo.Swap(i, j); // swap books
+			{ tempRepo.Swap(i, j); } // swap books
+		}
+	}
 	this->setBooksRepo(tempRepo);
 }
 
@@ -165,11 +177,15 @@ void LibraryService::SortBooksByReleaseYearAndGenre()
 {
 	Repo<Book> tempRepo = this->getBooksRepo();
 	for (int i = 0; i < tempRepo.Size() - 1; i++)
+	{
 		for (int j = i + 1; j < tempRepo.Size(); j++)
+		{
 			if (tempRepo[i].getReleaseYear() > tempRepo[j].getReleaseYear()
 					|| (tempRepo[i].getReleaseYear() == tempRepo[j].getReleaseYear()
 					&& tempRepo[i].getGenre() > tempRepo[j].getGenre()))
-				tempRepo.Swap(i, j); // swap books if release years differ or if equal and genres differ
+			{ tempRepo.Swap(i, j); } // swap books if release years differ or if equal and genres differ
+		}
+	}
 	this->setBooksRepo(tempRepo);
 }
 

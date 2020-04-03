@@ -133,15 +133,15 @@ template <typename ElementType>
 typename Repo<ElementType>::RepoNode* Repo<ElementType>::NodeAtIndex(int index)
 {
 	if (this->Empty()) // throw exception if repo is empty
-		throw IndexError("\nindex out of bounds");
+	{ throw IndexError("\nindex out of bounds"); }
 	RepoNode* currentNode = this->head;
 	for (int i = 0; i < index; i++) // iterating nodes until the requested one
 	{
 		// throw exception if the index is out of bounds
 		if (currentNode == NULL)
-			throw IndexError("\nindex out of bounds");
+		{ throw IndexError("\nindex out of bounds"); }
 		if (currentNode->next == NULL)
-			throw IndexError("\nindex out of bounds");
+		{ throw IndexError("\nindex out of bounds"); }
 
 		currentNode = currentNode->next; // step to the next node
 	}
@@ -153,7 +153,7 @@ void Repo<ElementType>::ValidateDuplicate(ElementType element)
 {
 	for (int i = 0; i < this->Size(); i++)
 		if (element == this->operator[](i)) // search for element in repo
-			throw DuplicateError("\nelement already in repository"); // if found throw exception
+		{ throw DuplicateError("\nelement already in repository"); } // if found throw exception
 }
 
 template <typename ElementType>
@@ -161,7 +161,7 @@ void Repo<ElementType>::ValidateExistance(ElementType element)
 {
 	for (int i = 0; i < this->Size(); i++)
 		if (element == this->operator[](i)) // search for element in repo
-			return; // if found, all is good
+		{ return; } // if found, all is good
 	throw NotFoundError("\nelement not found in repository"); // if not found throw exception
 }
 
@@ -198,15 +198,15 @@ template <typename ElementType>
 ElementType &Repo<ElementType>::operator[](int index)
 {
 	if (this->Empty()) // throw exception if repo is empty
-		throw IndexError("\nindex out of bounds");
+	{ throw IndexError("\nindex out of bounds"); }
 	RepoNode* currentNode = this->head;
 	for (int i = 0; i < index; i++) // iterating nodes until the requested one
 	{
 		// throw exception if the index is out of bounds
 		if (currentNode == NULL)
-			throw IndexError("\nindex out of bounds");
+		{ throw IndexError("\nindex out of bounds"); }
 		if (currentNode->next == NULL)
-			throw IndexError("\nindex out of bounds");
+		{ throw IndexError("\nindex out of bounds"); }
 
 		currentNode = currentNode->next; // step to the next node
 	}
@@ -236,7 +236,7 @@ template <typename ElementType>
 void Repo<ElementType>::Swap(const int first, const int second)
 {
 	if (first > this->Size() - 1 || first < 0 || second > this->Size() - 1 || second < 0 || first == second)
-		throw IndexError("\ninvalid indexes");
+	{ throw IndexError("\ninvalid indexes"); }
 	// swaping elements
 	ElementType temp = this->operator[](first);
 	this->operator[](first) = this->operator[](second);
@@ -286,7 +286,7 @@ void Repo<ElementType>::Insert(ElementType element, int index)
 	else // inserting at index
 	{
 		if (index > this->Size())
-			delete newNode;
+		{ delete newNode; }
 		newNode->next = this->NodeAtIndex(index - 1)->next;
 		this->NodeAtIndex(index - 1)->next = newNode;
 	}
@@ -312,10 +312,10 @@ template <typename ElementType>
 ElementType &Repo<ElementType>::GetElement(std::function<bool(ElementType)> isMatching)
 {
 	if (this->Empty())
-		throw EmptyRepoError("\nempty repository");
+	{ throw EmptyRepoError("\nempty repository"); }
 	for (int i = 0; i < this->Size(); i++)
 		if (isMatching(this->operator[](i)))
-			return this->operator[](i);
+		{ return this->operator[](i); }
 	throw NotFoundError("\nelement not found in repository");
 }
 
@@ -323,9 +323,9 @@ template <typename ElementType>
 int Repo<ElementType>::GetIndexOfElement(std::function<bool(ElementType)> isMatching)
 {
 	if (this->Empty())
-		throw EmptyRepoError("\nempty repository");
+	{ throw EmptyRepoError("\nempty repository"); }
 	for (int i = 0; i < this->Size(); i++)
 		if (isMatching(this->operator[](i)))
-			return i;
+		{ return i; }
 	throw NotFoundError("\nelement not found in repository");
 }

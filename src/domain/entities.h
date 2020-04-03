@@ -49,5 +49,5 @@ class Book
 		bool operator== (const Book other) const { return this->getTitle() == other.getTitle() && this->getAuthor() == other.getAuthor(); }
 
 		/// Validates itself
-		const void ValidateData(const std::string title, const std::string author, const std::string genre, const int releaseYear) const;
+		void ValidateData(const std::string title, const std::string author, const std::string genre, const int releaseYear) const;
 };
