@@ -55,8 +55,9 @@ void LibraryService::ModifyBookInRepo(const std::string &titleSearch, const std:
 	newBook.ValidateData(newBook.getTitle(), newBook.getAuthor(), newBook.getGenre(), newBook.getReleaseYear());
 
 	// removing the old one and inserting the new one in place
+	tempRepo.ValidateDuplicate(newBook);
+	tempRepo.Erase(oldBookIndex); // remove the old one
 	tempRepo.Insert(newBook, oldBookIndex); // insert the new one
-	tempRepo.Erase(oldBookIndex + 1); // remove the old one
 	// set the new state
 	this->setBooksRepo(tempRepo);
 }

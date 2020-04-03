@@ -26,6 +26,7 @@ class Repo
 		 */
 		RepoNode* NodeAtIndex(int index);
 
+	public:
 		/**
 		 * Ensures that the given element is not already in repo
 		 *
@@ -42,7 +43,6 @@ class Repo
 		 */
 		void ValidateExistance(ElementType element);
 
-	public:
 		/// Repo constructor
 		Repo();
 		
@@ -138,8 +138,6 @@ typename Repo<ElementType>::RepoNode* Repo<ElementType>::NodeAtIndex(int index)
 	for (int i = 0; i < index; i++) // iterating nodes until the requested one
 	{
 		// throw exception if the index is out of bounds
-		if (currentNode == NULL)
-		{ throw IndexError("\nindex out of bounds"); }
 		if (currentNode->next == NULL)
 		{ throw IndexError("\nindex out of bounds"); }
 
@@ -203,8 +201,6 @@ ElementType &Repo<ElementType>::operator[](int index)
 	for (int i = 0; i < index; i++) // iterating nodes until the requested one
 	{
 		// throw exception if the index is out of bounds
-		if (currentNode == NULL)
-		{ throw IndexError("\nindex out of bounds"); }
 		if (currentNode->next == NULL)
 		{ throw IndexError("\nindex out of bounds"); }
 
