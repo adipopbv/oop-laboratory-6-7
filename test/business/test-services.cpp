@@ -99,3 +99,51 @@ TEST(LibraryService, GetFilteredBooks)
 	filteredBooks.FreeRepo();
 	service.getBooksRepo().FreeRepo();
 }
+
+TEST(LibraryService, SortBooksByTitle)
+{
+	Book book1 = Book("ce", "se", "intampla", 301);
+	Book book2 = Book("vai", "de", "noi", 2020);
+	Book book3 = Book("ceva", "cineva", "careva", 2020);
+	LibraryService service = LibraryService();
+	service.AddBookToRepo("ce", "se", "intampla", 301);
+	service.AddBookToRepo("vai", "de", "noi", 2020);
+	service.AddBookToRepo("ceva", "cineva", "careva", 2020);
+	service.SortBooksByTitle();
+	ASSERT_TRUE(service.GetBooks()[0] == book1
+			&& service.GetBooks()[1] == book3
+			&& service.GetBooks()[2] == book2);
+	service.getBooksRepo().FreeRepo();
+}
+
+TEST(LibraryService, SortBooksByAuthor)
+{
+	Book book1 = Book("ce", "se", "intampla", 301);
+	Book book2 = Book("vai", "de", "noi", 2020);
+	Book book3 = Book("ceva", "cineva", "careva", 2020);
+	LibraryService service = LibraryService();
+	service.AddBookToRepo("ce", "se", "intampla", 301);
+	service.AddBookToRepo("vai", "de", "noi", 2020);
+	service.AddBookToRepo("ceva", "cineva", "careva", 2020);
+	service.SortBooksByAuthor();
+	ASSERT_TRUE(service.GetBooks()[0] == book3
+			&& service.GetBooks()[1] == book2
+			&& service.GetBooks()[2] == book1);
+	service.getBooksRepo().FreeRepo();
+}
+
+TEST(LibraryService, SortBooksByReleaseYearAndGenre)
+{
+	Book book1 = Book("ce", "se", "intampla", 301);
+	Book book2 = Book("vai", "de", "noi", 2020);
+	Book book3 = Book("ceva", "cineva", "careva", 2020);
+	LibraryService service = LibraryService();
+	service.AddBookToRepo("ce", "se", "intampla", 301);
+	service.AddBookToRepo("vai", "de", "noi", 2020);
+	service.AddBookToRepo("ceva", "cineva", "careva", 2020);
+	service.SortBooksByReleaseYearAndGenre();
+	ASSERT_TRUE(service.GetBooks()[0] == book1
+			&& service.GetBooks()[1] == book3
+			&& service.GetBooks()[2] == book2);
+	service.getBooksRepo().FreeRepo();
+}
