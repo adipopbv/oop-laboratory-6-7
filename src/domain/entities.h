@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "./exceptions.h"
 
 class Book
 {
@@ -46,4 +47,7 @@ class Book
 
 		/// Overloading == operator
 		bool operator== (const Book other) const { return this->getTitle() == other.getTitle() && this->getAuthor() == other.getAuthor(); }
+
+		/// Validates itself
+		void ValidateData(const std::string title, const std::string author, const std::string genre, const int releaseYear) const;
 };

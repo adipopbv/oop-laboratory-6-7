@@ -1,9 +1,9 @@
 #pragma once
 
-#include <vector>
 #include <string>
 
 #include "../business/services.h"
+#include "../infrastructure/repos.h"
 #include "./graphical-interface/terminal-io.h"
 #include "../domain/entities.h"
 
@@ -24,6 +24,9 @@ class LibraryClient
 		/// Io getter
 		TerminalIO getIO() const { return this->io; }
 
+		/// Prints a book's data
+		void PrintBook(Book const book) const;
+
 		/// Lists all books
 		void ListAllBooks() const;
 
@@ -35,6 +38,15 @@ class LibraryClient
 
 		/// Deletes a book from the repository
 		void DeleteBook();
+
+		/// Searches a book in the repository
+		void SearchBook();
+
+		/// Filters books by title and/or release year
+		void FilterBooks();
+
+		/// Sorts books by title, author or release year and genre
+		void SortBooks();
 
 		/// Exits application
 		void ExitApplication() const;

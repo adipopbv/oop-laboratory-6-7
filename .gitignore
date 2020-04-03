@@ -1,7 +1,4 @@
-app
-*.gcov
-*.gcda
-*.gcno
 /build
 /lib
+/CMakeModules
 CMakeLists.txt
