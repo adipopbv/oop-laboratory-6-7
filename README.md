@@ -70,4 +70,8 @@ __Note__: nothing done at runtime will be saved to disk!
 
 Added tests based on the google unit testing framework, implemented a custom repository with universal simple linked list, added exceptions and validations.
 
+Also, I implemented the following functionalities:
+1. Searching book
+2. Filtering books
+
 __Note__: saving to disk still not supported!
